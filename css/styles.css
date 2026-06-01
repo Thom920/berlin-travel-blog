@@ -1,0 +1,50 @@
+/* Timeline */
+.timeline-track::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    width: 2px;
+    background-color: #005f73;
+}
+
+@media (min-width: 768px) {
+    .timeline-track::before {
+        left: 50%;
+        margin-left: -1px;
+    }
+}
+
+/* Toast animation */
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+.toast-enter {
+    animation: slideInUp 0.3s forwards;
+}
+
+.toast-exit {
+    animation: slideOutDown 0.3s forwards;
+}
