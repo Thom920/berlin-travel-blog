@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="light" lang="nl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Tijdlijn — Berlin Travel Blog</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <script src="js/tailwind-config.js"></script>
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+    <header
+        class="bg-surface-bright dark:bg-surface-dim docked full-width top-0 border-b border-outline-variant dark:border-on-surface-variant flat no shadows sticky z-50">
+        <div
+            class="flex justify-between items-center w-full px-margin-mobile md:px-gutter max-w-max-width mx-auto h-16">
+            <a class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim"
+                href="index.html">Berlin Travel Blog</a>
+            <nav class="hidden md:flex gap-6 items-center">
+                <a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim hover:text-primary-container transition-colors duration-200"
+                    href="index.html">Home</a>
+                <a class="font-label-md text-label-md text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 hover:text-primary-container transition-colors duration-200"
+                    href="tijdlijn.html">Tijdlijn</a>
+                <a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim hover:text-primary-container transition-colors duration-200"
+                    href="kaart.html">Kaart</a>
+                <a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim hover:text-primary-container transition-colors duration-200"
+                    href="over-ons.html">Over Ons</a>
+                <a class="ml-4 bg-primary-container text-on-primary font-label-md text-label-md px-4 py-2 rounded-DEFAULT hover:bg-primary transition-colors duration-200"
+                    href="cms.html">Inloggen CMS</a>
+            </nav>
+            <button class="md:hidden text-primary p-2" id="mobile-menu-btn" type="button">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+        <div class="hidden md:hidden bg-surface-bright border-b border-outline-variant px-margin-mobile py-4 flex flex-col gap-4"
+            id="mobile-menu">
+            <a class="font-label-md text-label-md text-secondary" href="index.html">Home</a>
+            <a class="font-label-md text-label-md text-primary pb-1 border-b-2 border-primary w-fit"
+                href="tijdlijn.html">Tijdlijn</a>
+            <a class="font-label-md text-label-md text-secondary" href="kaart.html">Kaart</a>
+            <a class="font-label-md text-label-md text-secondary" href="over-ons.html">Over Ons</a>
+            <a class="bg-primary-container text-on-primary font-label-md text-label-md px-4 py-2 rounded-DEFAULT mt-2 w-full text-center"
+                href="cms.html">Inloggen CMS</a>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-max-width mx-auto px-margin-mobile md:px-gutter py-16 min-h-[614px]">
+        <div class="text-center mb-16">
+            <h1 class="font-headline-xl text-headline-xl text-on-surface mb-4">Reis Tijdlijn</h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant">5 dagen vol avontuur in Berlijn.</p>
+        </div>
+
+        <div class="relative timeline-track py-8">
+            <div class="relative flex flex-col md:flex-row items-center w-full mb-12">
+                <div
+                    class="absolute left-5 md:left-1/2 w-4 h-4 rounded-full bg-primary-container -ml-2 border-4 border-surface-container-lowest z-10 shadow-sm">
+                </div>
+                <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-12 text-left md:text-right mb-4 md:mb-0">
+                    <h2 class="font-headline-lg text-headline-lg text-primary-container">Maandag</h2>
+                    <p class="font-label-md text-label-md text-secondary mt-1">Aankomst</p>
+                </div>
+                <div class="w-full md:w-1/2 pl-12 md:pl-12">
+                    <div
+                        class="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Aankomst</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-4">We zijn geland! Na aankomst in
+                            Berlijn inchecken en de eerste indrukken van de stad opdoen.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-on-surface">
+                                <span
+                                    class="material-symbols-outlined text-primary-container text-sm">check_circle</span>
+                                Inchecken hotel
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative flex flex-col md:flex-row-reverse items-center w-full mb-12">
+                <div
+                    class="absolute left-5 md:left-1/2 w-4 h-4 rounded-full bg-primary-container -ml-2 border-4 border-surface-container-lowest z-10 shadow-sm">
+                </div>
+                <div class="w-full md:w-1/2 pl-12 md:pl-12 text-left mb-4 md:mb-0">
+                    <h2 class="font-headline-lg text-headline-lg text-primary-container">Dinsdag</h2>
+                    <p class="font-label-md text-label-md text-secondary mt-1">Urban Nation</p>
+                </div>
+                <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-12">
+                    <div
+                        class="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-left md:text-right">
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Urban Nation</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-4">Een duik in de wereld van
+                            street art. Dit museum brengt de rauwe energie van de straat naar binnen.</p>
+                        <ul class="space-y-2 mb-4 inline-block text-left">
+                            <li class="flex items-center gap-2 text-on-surface">
+                                <span
+                                    class="material-symbols-outlined text-primary-container text-sm">check_circle</span>
+                                Urban Nation Museum bezocht
+                            </li>
+                        </ul>
+                        <div class="flex justify-start md:justify-end">
+                            <a class="text-primary-container font-label-md text-label-md flex items-center gap-1 hover:text-primary transition-colors"
+                                href="kaart.html">
+                                <span class="material-symbols-outlined text-[18px]">map</span> Bekijk op kaart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative flex flex-col md:flex-row items-center w-full mb-12">
+                <div
+                    class="absolute left-5 md:left-1/2 w-4 h-4 rounded-full bg-primary-container -ml-2 border-4 border-surface-container-lowest z-10 shadow-sm">
+                </div>
+                <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-12 text-left md:text-right mb-4 md:mb-0">
+                    <h2 class="font-headline-lg text-headline-lg text-primary-container">Woensdag</h2>
+                    <p class="font-label-md text-label-md text-secondary mt-1">DDR Museum</p>
+                </div>
+                <div class="w-full md:w-1/2 pl-12 md:pl-12">
+                    <div
+                        class="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">DDR Museum</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-4">Een interactieve ervaring
+                            over het leven in voormalig Oost-Duitsland.</p>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center gap-2 text-on-surface">
+                                <span
+                                    class="material-symbols-outlined text-primary-container text-sm">check_circle</span>
+                                DDR Museum bezocht
+                            </li>
+                        </ul>
+                        <a class="text-primary-container font-label-md text-label-md flex items-center gap-1 hover:text-primary transition-colors"
+                            href="kaart.html">
+                            <span class="material-symbols-outlined text-[18px]">map</span> Bekijk op kaart
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative flex flex-col md:flex-row-reverse items-center w-full mb-12">
+                <div
+                    class="absolute left-5 md:left-1/2 w-4 h-4 rounded-full bg-primary-container -ml-2 border-4 border-surface-container-lowest z-10 shadow-sm">
+                </div>
+                <div class="w-full md:w-1/2 pl-12 md:pl-12 text-left mb-4 md:mb-0">
+                    <h2 class="font-headline-lg text-headline-lg text-primary-container">Donderdag</h2>
+                    <p class="font-label-md text-label-md text-secondary mt-1">Teufelsberg</p>
+                </div>
+                <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-12">
+                    <div
+                        class="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-left md:text-right">
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Teufelsberg</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-4">Beklim de voormalige
+                            afluisterpost uit de Koude Oorlog. Naast uitzichten over de stad vind je hier
+                            indrukwekkende graffiti.</p>
+                        <ul class="space-y-2 mb-4 inline-block text-left">
+                            <li class="flex items-center gap-2 text-on-surface">
+                                <span
+                                    class="material-symbols-outlined text-primary-container text-sm">check_circle</span>
+                                Teufelsberg verkenning
+                            </li>
+                        </ul>
+                        <div class="flex justify-start md:justify-end">
+                            <a class="text-primary-container font-label-md text-label-md flex items-center gap-1 hover:text-primary transition-colors"
+                                href="kaart.html">
+                                <span class="material-symbols-outlined text-[18px]">map</span> Bekijk op kaart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative flex flex-col md:flex-row items-center w-full mb-12">
+                <div
+                    class="absolute left-5 md:left-1/2 w-4 h-4 rounded-full bg-primary-container -ml-2 border-4 border-surface-container-lowest z-10 shadow-sm">
+                </div>
+                <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-12 text-left md:text-right mb-4 md:mb-0">
+                    <h2 class="font-headline-lg text-headline-lg text-primary-container">Vrijdag</h2>
+                    <p class="font-label-md text-label-md text-secondary mt-1">Terugreis</p>
+                </div>
+                <div class="w-full md:w-1/2 pl-12 md:pl-12">
+                    <div
+                        class="bg-surface-container-lowest border border-surface-variant p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Terugreis</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Tijd om in te pakken en terug naar
+                            huis te gaan, met veel nieuwe inspiratie en verhalen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer
+        class="bg-surface-container-highest dark:bg-surface-variant full-width bottom-0 border-t border-outline-variant flat mt-auto">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-gutter py-8 max-w-max-width mx-auto">
+            <div class="font-label-md text-label-md font-bold text-primary-container mb-4 md:mb-0">Berlin Travel Blog
+            </div>
+            <div
+                class="font-label-sm text-label-sm text-on-surface dark:text-on-surface-variant text-center md:text-right">
+                © 2026 Berlin travel blog. Alle rechten voorbehouden.
+            </div>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
