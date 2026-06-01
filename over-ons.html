@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html class="light" lang="nl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Over Ons — Berlin Travel Blog</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <script src="js/tailwind-config.js"></script>
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+    <header
+        class="bg-surface-bright dark:bg-surface-dim docked full-width top-0 border-b border-outline-variant dark:border-on-surface-variant flat no shadows sticky z-50">
+        <div
+            class="flex justify-between items-center w-full px-margin-mobile md:px-gutter max-w-max-width mx-auto h-16">
+            <a class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim"
+                href="index.html">Berlin Travel Blog</a>
+            <nav class="hidden md:flex gap-6 items-center">
+                <a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim hover:text-primary-container transition-colors duration-200"
+                    href="index.html">Home</a>
+                <a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim hover:text-primary-container transition-colors duration-200"
+                    href="tijdlijn.html">Tijdlijn</a>
+                <a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim hover:text-primary-container transition-colors duration-200"
+                    href="kaart.html">Kaart</a>
+                <a class="font-label-md text-label-md text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 hover:text-primary-container transition-colors duration-200"
+                    href="over-ons.html">Over Ons</a>
+                <a class="ml-4 bg-primary-container text-on-primary font-label-md text-label-md px-4 py-2 rounded-DEFAULT hover:bg-primary transition-colors duration-200"
+                    href="cms.html">Inloggen CMS</a>
+            </nav>
+            <button class="md:hidden text-primary p-2" id="mobile-menu-btn" type="button">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+        <div class="hidden md:hidden bg-surface-bright border-b border-outline-variant px-margin-mobile py-4 flex flex-col gap-4"
+            id="mobile-menu">
+            <a class="font-label-md text-label-md text-secondary" href="index.html">Home</a>
+            <a class="font-label-md text-label-md text-secondary" href="tijdlijn.html">Tijdlijn</a>
+            <a class="font-label-md text-label-md text-secondary" href="kaart.html">Kaart</a>
+            <a class="font-label-md text-label-md text-primary pb-1 border-b-2 border-primary w-fit"
+                href="over-ons.html">Over Ons</a>
+            <a class="bg-primary-container text-on-primary font-label-md text-label-md px-4 py-2 rounded-DEFAULT mt-2 w-full text-center"
+                href="cms.html">Inloggen CMS</a>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-max-width mx-auto px-margin-mobile md:px-gutter py-16 min-h-[614px]">
+        <div class="text-center mb-16 max-w-2xl mx-auto">
+            <h1 class="font-headline-xl text-headline-xl text-on-surface mb-4">Over Ons</h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant">
+                Berlin Travel Blog volgt een reis van vijf dagen door de Duitse hoofdstad — cultuur, geschiedenis en
+                verrassende plekken off the beaten track.
+            </p>
+        </div>
+
+        <section class="max-w-2xl mx-auto mb-16">
+            <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-8 shadow-sm">
+                <h2 class="font-headline-md text-headline-md text-on-surface mb-4">Over dit blog</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant mb-4">
+                    Op deze site vind je onze route door Berlijn: van aankomst tot terugreis, met stops bij Urban
+                    Nation, het DDR Museum en Teufelsberg.
+                </p>
+            </div>
+        </section>
+
+        <section class="max-w-3xl mx-auto">
+            <h2 class="font-headline-lg text-headline-lg text-on-surface text-center mb-8">Wat je hier vindt</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <a class="group bg-surface-container-lowest border border-surface-variant rounded-xl p-5 text-center hover:shadow-md transition-shadow"
+                    href="tijdlijn.html">
+                    <span
+                        class="material-symbols-outlined text-primary-container text-3xl mb-3 block group-hover:text-primary transition-colors">timeline</span>
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-1">Tijdlijn</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-sm">Vijf dagen avontuur, dag voor
+                        dag.</p>
+                </a>
+                <a class="group bg-surface-container-lowest border border-surface-variant rounded-xl p-5 text-center hover:shadow-md transition-shadow"
+                    href="kaart.html">
+                    <span
+                        class="material-symbols-outlined text-primary-container text-3xl mb-3 block group-hover:text-primary transition-colors">map</span>
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-1">Kaart</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-sm">Locaties van de reis op één
+                        plek.</p>
+                </a>
+                <a class="group bg-surface-container-lowest border border-surface-variant rounded-xl p-5 text-center hover:shadow-md transition-shadow"
+                    href="index.html">
+                    <span
+                        class="material-symbols-outlined text-primary-container text-3xl mb-3 block group-hover:text-primary transition-colors">photo_camera</span>
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-1">Live feed</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-sm">Instagram-vakjes — foto's
+                        volgen
+                        later.</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer
+        class="bg-surface-container-highest dark:bg-surface-variant full-width bottom-0 border-t border-outline-variant flat mt-auto">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-gutter py-8 max-w-max-width mx-auto">
+            <div class="font-label-md text-label-md font-bold text-primary-container mb-4 md:mb-0">Berlin Travel Blog
+            </div>
+            <div
+                class="font-label-sm text-label-sm text-on-surface dark:text-on-surface-variant text-center md:text-right">
+                © 2026 Berlin travel blog. Alle rechten voorbehouden.
+            </div>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
