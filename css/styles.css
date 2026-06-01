@@ -49,20 +49,87 @@
     animation: slideOutDown 0.3s forwards;
 }
 
-/* Map */
+/* ── Kaartpagina: CSS Grid (expliciete hoogte, geen flex + height:100%) ── */
+.map-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: calc(100vh - 64px);
+    min-height: 480px;
+}
+
+@media (min-width: 768px) {
+    .map-layout {
+        grid-template-columns: 320px 1fr;
+        grid-template-rows: 1fr;
+    }
+}
+
+.map-layout__sidebar {
+    overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+    .map-layout__sidebar {
+        max-height: calc(100vh - 64px);
+    }
+}
+
+.map-layout__map {
+    position: relative;
+    min-height: 0;
+    height: 100%;
+}
+
+/* Leaflet quick start: container needs defined height */
 #map {
     width: 100%;
     height: 100%;
-    min-height: 400px;
+    min-height: 320px;
+    background: #dde8ec;
 }
 
-.map-grid {
-    background-color: #e5e8ee;
-    background-image: radial-gradient(#005f73 1px, transparent 1px);
-    background-size: 20px 20px;
-    opacity: 0.15;
+/* Tailwind preflight breekt Leaflet-tegels (img max-width: 100%) */
+.leaflet-container img,
+.leaflet-container .leaflet-tile {
+    max-width: none !important;
+    max-height: none !important;
+}
+
+.leaflet-container {
+    font-family: inherit;
+    z-index: 0;
+}
+
+.leaflet-popup-content {
+    margin: 12px 14px;
+    line-height: 1.45;
+}
+
+.map-popup-btn {
+    margin-top: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: #005f73;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.map-popup-btn:hover {
+    background: #004655;
 }
 
 .map-placeholder {
-    background: linear-gradient(to bottom, transparent, rgba(247, 249, 255, 0.85));
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #e5e8ee;
+    z-index: 1;
+    pointer-events: none;
 }

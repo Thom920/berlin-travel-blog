@@ -14,6 +14,8 @@
         rel="stylesheet" />
     <script src="js/tailwind-config.js"></script>
     <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 </head>
 
 <body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
@@ -52,13 +54,13 @@
     </header>
 
     <main class="flex-grow flex flex-col">
-        <div class="flex flex-col md:flex-row flex-grow min-h-[calc(100vh-64px)]">
+        <div class="map-layout">
             <aside
-                class="w-full md:w-80 shrink-0 bg-surface-container-lowest border-b md:border-b-0 md:border-r border-surface-variant p-6 flex flex-col gap-6 overflow-y-auto">
+                class="map-layout__sidebar bg-surface-container-lowest border-b md:border-b-0 md:border-r border-surface-variant p-6 flex flex-col gap-6">
                 <div>
                     <h1 class="font-headline-md text-headline-md text-on-surface mb-2">Kaart</h1>
                     <p class="font-body-md text-body-md text-on-surface-variant mb-6">
-                        Locaties uit onze reis. Leaflet-integratie volgt later.
+                        Vink locaties aan of uit. Klik een marker of locatie voor meer info.
                     </p>
                     <h2 class="font-label-md text-label-md text-on-surface-variant mb-4">Locaties</h2>
                     <div class="space-y-3" aria-label="Locaties op de kaart">
@@ -122,17 +124,11 @@
                 </div>
             </aside>
 
-            <div class="flex-grow relative min-h-[400px]">
-                <div aria-hidden="true" class="map-grid absolute inset-0 pointer-events-none"></div>
-                <!-- Leaflet mount point -->
-                <div aria-label="Kaart van Berlijn" class="absolute inset-0 z-10" id="map" role="region"></div>
-                <div class="map-placeholder absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-20 pointer-events-none"
-                    id="map-placeholder">
-                    <span class="material-symbols-outlined text-6xl text-outline-variant mb-4">map</span>
-                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Interactieve kaart</h2>
-                    <p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
-                        Hier komt de Leaflet-kaart. Markers en filters worden later gekoppeld.
-                    </p>
+            <div class="map-layout__map">
+                <div id="map" aria-label="Kaart van Berlijn"></div>
+                <div class="map-placeholder" id="map-placeholder" aria-hidden="true">
+                    <span class="material-symbols-outlined text-5xl text-outline-variant mb-2">map</span>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Kaart laden…</p>
                 </div>
             </div>
         </div>
@@ -173,7 +169,10 @@
             </div>
         </div>
     </footer>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="js/main.js"></script>
+    <script src="js/kaart.js"></script>
 </body>
 
 </html>
