@@ -20,8 +20,35 @@ function triggerToast() {
     }, 3000);
 }
 
-function openMapModal() {
-    document.getElementById('map-modal')?.classList.remove('hidden');
+const mapLocations = {
+    'urban-nation': {
+        title: 'Urban Nation',
+        description: 'Street art museum in Berlin-Schöneberg. Een duik in de wereld van urban art en graffiti.',
+    },
+    'ddr-museum': {
+        title: 'DDR Museum',
+        description: 'Interactief museum over het leven in voormalig Oost-Duitsland, aan de Spree.',
+    },
+    teufelsberg: {
+        title: 'Teufelsberg',
+        description: 'Voormalige afluisterpost uit de Koude Oorlog met uitzicht over Berlijn en indrukwekkende graffiti.',
+    },
+};
+
+function openMapModal(locationId) {
+    const modal = document.getElementById('map-modal');
+    if (!modal) return;
+
+    const location = locationId ? mapLocations[locationId] : null;
+    const titleEl = modal.querySelector('[data-map-modal-title]');
+    const descriptionEl = modal.querySelector('[data-map-modal-description]');
+
+    if (location && titleEl && descriptionEl) {
+        titleEl.textContent = location.title;
+        descriptionEl.textContent = location.description;
+    }
+
+    modal.classList.remove('hidden');
 }
 
 function closeMapModal() {

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="light" lang="nl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Kaart — Berlin Travel Blog</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <script src="js/tailwind-config.js"></script>
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+    <header
+        class="bg-surface-bright dark:bg-surface-dim docked full-width top-0 border-b border-outline-variant dark:border-on-surface-variant flat no shadows sticky z-50">
+        <div
+            class="flex justify-between items-center w-full px-margin-mobile md:px-gutter max-w-max-width mx-auto h-16">
+            <a class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim"
+                href="index.html">Berlin Travel Blog</a>
+            <nav class="hidden md:flex gap-6 items-center">
+                <a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim hover:text-primary-container transition-colors duration-200"
+                    href="index.html">Home</a>
+                <a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim hover:text-primary-container transition-colors duration-200"
+                    href="tijdlijn.html">Tijdlijn</a>
+                <a class="font-label-md text-label-md text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 hover:text-primary-container transition-colors duration-200"
+                    href="kaart.html">Kaart</a>
+                <a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim hover:text-primary-container transition-colors duration-200"
+                    href="over-ons.html">Over Ons</a>
+                <a class="ml-4 bg-primary-container text-on-primary font-label-md text-label-md px-4 py-2 rounded-DEFAULT hover:bg-primary transition-colors duration-200"
+                    href="cms.html">Inloggen CMS</a>
+            </nav>
+            <button class="md:hidden text-primary p-2" id="mobile-menu-btn" type="button">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+        <div class="hidden md:hidden bg-surface-bright border-b border-outline-variant px-margin-mobile py-4 flex flex-col gap-4"
+            id="mobile-menu">
+            <a class="font-label-md text-label-md text-secondary" href="index.html">Home</a>
+            <a class="font-label-md text-label-md text-secondary" href="tijdlijn.html">Tijdlijn</a>
+            <a class="font-label-md text-label-md text-primary pb-1 border-b-2 border-primary w-fit"
+                href="kaart.html">Kaart</a>
+            <a class="font-label-md text-label-md text-secondary" href="over-ons.html">Over Ons</a>
+            <a class="bg-primary-container text-on-primary font-label-md text-label-md px-4 py-2 rounded-DEFAULT mt-2 w-full text-center"
+                href="cms.html">Inloggen CMS</a>
+        </div>
+    </header>
+
+    <main class="flex-grow flex flex-col">
+        <div class="flex flex-col md:flex-row flex-grow min-h-[calc(100vh-64px)]">
+            <aside
+                class="w-full md:w-80 shrink-0 bg-surface-container-lowest border-b md:border-b-0 md:border-r border-surface-variant p-6 flex flex-col gap-6 overflow-y-auto">
+                <div>
+                    <h1 class="font-headline-md text-headline-md text-on-surface mb-2">Kaart</h1>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                        Locaties uit onze reis. Leaflet-integratie volgt later.
+                    </p>
+                    <h2 class="font-label-md text-label-md text-on-surface-variant mb-4">Locaties</h2>
+                    <div class="space-y-3" aria-label="Locaties op de kaart">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input checked
+                                class="form-checkbox h-5 w-5 text-primary-container rounded border-outline-variant focus:ring-primary-container"
+                                data-location="urban-nation" type="checkbox" />
+                            <span
+                                class="font-body-md text-body-md text-on-surface group-hover:text-primary-container transition-colors">Urban
+                                Nation</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input checked
+                                class="form-checkbox h-5 w-5 text-primary-container rounded border-outline-variant focus:ring-primary-container"
+                                data-location="ddr-museum" type="checkbox" />
+                            <span
+                                class="font-body-md text-body-md text-on-surface group-hover:text-primary-container transition-colors">DDR
+                                Museum</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input checked
+                                class="form-checkbox h-5 w-5 text-primary-container rounded border-outline-variant focus:ring-primary-container"
+                                data-location="teufelsberg" type="checkbox" />
+                            <span
+                                class="font-body-md text-body-md text-on-surface group-hover:text-primary-container transition-colors">Teufelsberg</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="border-t border-surface-variant pt-6">
+                    <h2 class="font-label-md text-label-md text-on-surface-variant mb-4">Details</h2>
+                    <ul class="space-y-2">
+                        <li>
+                            <button
+                                class="w-full text-left flex items-center gap-2 font-body-md text-body-md text-on-surface hover:text-primary-container transition-colors py-1"
+                                data-location="urban-nation" type="button" onclick="openMapModal('urban-nation')">
+                                <span
+                                    class="material-symbols-outlined text-primary-container text-xl">location_on</span>
+                                Urban Nation
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full text-left flex items-center gap-2 font-body-md text-body-md text-on-surface hover:text-primary-container transition-colors py-1"
+                                data-location="ddr-museum" type="button" onclick="openMapModal('ddr-museum')">
+                                <span
+                                    class="material-symbols-outlined text-primary-container text-xl">location_on</span>
+                                DDR Museum
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full text-left flex items-center gap-2 font-body-md text-body-md text-on-surface hover:text-primary-container transition-colors py-1"
+                                data-location="teufelsberg" type="button" onclick="openMapModal('teufelsberg')">
+                                <span
+                                    class="material-symbols-outlined text-primary-container text-xl">location_on</span>
+                                Teufelsberg
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+            <div class="flex-grow relative min-h-[400px]">
+                <div aria-hidden="true" class="map-grid absolute inset-0 pointer-events-none"></div>
+                <!-- Leaflet mount point -->
+                <div aria-label="Kaart van Berlijn" class="absolute inset-0 z-10" id="map" role="region"></div>
+                <div class="map-placeholder absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-20 pointer-events-none"
+                    id="map-placeholder">
+                    <span class="material-symbols-outlined text-6xl text-outline-variant mb-4">map</span>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Interactieve kaart</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
+                        Hier komt de Leaflet-kaart. Markers en filters worden later gekoppeld.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" id="map-modal"
+            role="dialog" aria-modal="true" aria-labelledby="map-modal-title">
+            <div class="bg-surface-container-lowest rounded-xl max-w-md w-full overflow-hidden shadow-xl">
+                <div class="h-48 bg-surface-container border-b border-surface-variant flex items-center justify-center">
+                    <div
+                        class="w-full h-full border-2 border-dashed border-outline-variant m-4 rounded-lg flex items-center justify-center">
+                        <span class="material-symbols-outlined text-outline text-4xl"
+                            aria-hidden="true">photo_camera</span>
+                    </div>
+                </div>
+                <div class="p-6 relative">
+                    <button
+                        class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface transition-colors"
+                        type="button" onclick="closeMapModal()" aria-label="Sluiten">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-2" data-map-modal-title
+                        id="map-modal-title">Locatie</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant" data-map-modal-description></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer
+        class="bg-surface-container-highest dark:bg-surface-variant full-width bottom-0 border-t border-outline-variant flat mt-auto">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-gutter py-8 max-w-max-width mx-auto">
+            <div class="font-label-md text-label-md font-bold text-primary-container mb-4 md:mb-0">Berlin Travel Blog
+            </div>
+            <div
+                class="font-label-sm text-label-sm text-on-surface dark:text-on-surface-variant text-center md:text-right">
+                © 2026 Berlin travel blog. Alle rechten voorbehouden.
+            </div>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
