@@ -63,63 +63,13 @@
                         Vink locaties aan of uit. Klik een marker of locatie voor meer info.
                     </p>
                     <h2 class="font-label-md text-label-md text-on-surface-variant mb-4">Locaties</h2>
-                    <div class="space-y-3" aria-label="Locaties op de kaart">
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input checked
-                                class="form-checkbox h-5 w-5 text-primary-container rounded border-outline-variant focus:ring-primary-container"
-                                data-location="urban-nation" type="checkbox" />
-                            <span
-                                class="font-body-md text-body-md text-on-surface group-hover:text-primary-container transition-colors">Urban
-                                Nation</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input checked
-                                class="form-checkbox h-5 w-5 text-primary-container rounded border-outline-variant focus:ring-primary-container"
-                                data-location="ddr-museum" type="checkbox" />
-                            <span
-                                class="font-body-md text-body-md text-on-surface group-hover:text-primary-container transition-colors">DDR
-                                Museum</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input checked
-                                class="form-checkbox h-5 w-5 text-primary-container rounded border-outline-variant focus:ring-primary-container"
-                                data-location="teufelsberg" type="checkbox" />
-                            <span
-                                class="font-body-md text-body-md text-on-surface group-hover:text-primary-container transition-colors">Teufelsberg</span>
-                        </label>
+                    <div class="space-y-3" id="map-location-filters" aria-label="Locaties op de kaart">
                     </div>
                 </div>
 
                 <div class="border-t border-surface-variant pt-6">
                     <h2 class="font-label-md text-label-md text-on-surface-variant mb-4">Details</h2>
-                    <ul class="space-y-2">
-                        <li>
-                            <button
-                                class="w-full text-left flex items-center gap-2 font-body-md text-body-md text-on-surface hover:text-primary-container transition-colors py-1"
-                                data-location="urban-nation" type="button" onclick="openMapModal('urban-nation')">
-                                <span
-                                    class="material-symbols-outlined text-primary-container text-xl">location_on</span>
-                                Urban Nation
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                class="w-full text-left flex items-center gap-2 font-body-md text-body-md text-on-surface hover:text-primary-container transition-colors py-1"
-                                data-location="ddr-museum" type="button" onclick="openMapModal('ddr-museum')">
-                                <span
-                                    class="material-symbols-outlined text-primary-container text-xl">location_on</span>
-                                DDR Museum
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                class="w-full text-left flex items-center gap-2 font-body-md text-body-md text-on-surface hover:text-primary-container transition-colors py-1"
-                                data-location="teufelsberg" type="button" onclick="openMapModal('teufelsberg')">
-                                <span
-                                    class="material-symbols-outlined text-primary-container text-xl">location_on</span>
-                                Teufelsberg
-                            </button>
-                        </li>
+                    <ul class="space-y-2" id="map-location-details">
                     </ul>
                 </div>
             </aside>
@@ -136,11 +86,15 @@
         <div class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" id="map-modal"
             role="dialog" aria-modal="true" aria-labelledby="map-modal-title">
             <div class="bg-surface-container-lowest rounded-xl max-w-md w-full overflow-hidden shadow-xl">
-                <div class="h-48 bg-surface-container border-b border-surface-variant flex items-center justify-center">
-                    <div
-                        class="w-full h-full border-2 border-dashed border-outline-variant m-4 rounded-lg flex items-center justify-center">
-                        <span class="material-symbols-outlined text-outline text-4xl"
-                            aria-hidden="true">photo_camera</span>
+                <div class="h-48 bg-surface-container border-b border-surface-variant overflow-hidden">
+                    <img class="w-full h-full object-cover hidden" data-map-modal-image alt="" />
+                    <div class="w-full h-full flex items-center justify-center"
+                        data-map-modal-image-placeholder>
+                        <div
+                            class="w-full h-full border-2 border-dashed border-outline-variant m-4 rounded-lg flex items-center justify-center">
+                            <span class="material-symbols-outlined text-outline text-4xl"
+                                aria-hidden="true">photo_camera</span>
+                        </div>
                     </div>
                 </div>
                 <div class="p-6 relative">
@@ -171,6 +125,8 @@
     </footer>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="js/contentful-config.js"></script>
+    <script src="js/contentful.js"></script>
     <script src="js/main.js"></script>
     <script src="js/kaart.js"></script>
 </body>

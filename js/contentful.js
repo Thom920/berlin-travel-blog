@@ -60,6 +60,17 @@
         return url ? (url.indexOf('//') === 0 ? 'https:' + url : url) : null;
     }
 
+    function firstAssetUrl(assets, field) {
+        if (Array.isArray(field)) {
+            for (var i = 0; i < field.length; i++) {
+                var url = assetUrl(assets, field[i]);
+                if (url) return url;
+            }
+            return null;
+        }
+        return assetUrl(assets, field);
+    }
+
     function assetUrls(assets, links) {
         if (!Array.isArray(links)) return [];
         return links
@@ -80,7 +91,7 @@
         };
     }
 
-    function parseLocatie(entry) {
+    function parseLocatie(entry, assets) {
         var fields = entry.fields || {};
         return {
             id: entry.sys.id,
@@ -89,6 +100,7 @@
             latitude: fields.latitude != null ? Number(fields.latitude) : null,
             longitude: fields.longitude != null ? Number(fields.longitude) : null,
             categorie: fields.categorie || '',
+            afbeelding: firstAssetUrl(assets, fields.afbeelding),
         };
     }
 
@@ -97,7 +109,7 @@
         return {
             id: entry.sys.id,
             caption: fields.caption || '',
-            afbeelding: assetUrl(assets, fields.afbeelding),
+            afbeelding: firstAssetUrl(assets, fields.afbeelding),
             permalink: fields.permalink || '',
         };
     }
@@ -113,7 +125,10 @@
 
     function getLocaties() {
         return fetchEntries('locatie', { order: 'fields.naam' }).then(function (data) {
-            return (data.items || []).map(parseLocatie);
+            var assets = assetMap(data.includes);
+            return (data.items || []).map(function (entry) {
+                return parseLocatie(entry, assets);
+            });
         });
     }
 

@@ -25,20 +25,7 @@ function triggerToast(message) {
     }, 3000);
 }
 
-const mapLocations = {
-    'urban-nation': {
-        title: 'Urban Nation',
-        description: 'Street art museum in Berlin-Schöneberg. Een duik in de wereld van urban art en graffiti.',
-    },
-    'ddr-museum': {
-        title: 'DDR Museum',
-        description: 'Interactief museum over het leven in voormalig Oost-Duitsland, aan de Spree.',
-    },
-    teufelsberg: {
-        title: 'Teufelsberg',
-        description: 'Voormalige afluisterpost uit de Koude Oorlog met uitzicht over Berlijn en indrukwekkende graffiti.',
-    },
-};
+const mapLocations = {};
 
 function openMapModal(locationId) {
     const modal = document.getElementById('map-modal');
@@ -47,10 +34,23 @@ function openMapModal(locationId) {
     const location = locationId ? mapLocations[locationId] : null;
     const titleEl = modal.querySelector('[data-map-modal-title]');
     const descriptionEl = modal.querySelector('[data-map-modal-description]');
+    const imageEl = modal.querySelector('[data-map-modal-image]');
+    const placeholderEl = modal.querySelector('[data-map-modal-image-placeholder]');
 
     if (location && titleEl && descriptionEl) {
         titleEl.textContent = location.title;
         descriptionEl.textContent = location.description;
+
+        if (location.afbeelding && imageEl) {
+            imageEl.src = location.afbeelding;
+            imageEl.alt = location.title;
+            imageEl.classList.remove('hidden');
+            placeholderEl?.classList.add('hidden');
+        } else {
+            imageEl?.classList.add('hidden');
+            if (imageEl) imageEl.removeAttribute('src');
+            placeholderEl?.classList.remove('hidden');
+        }
     }
 
     modal.classList.remove('hidden');
