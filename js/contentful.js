@@ -72,22 +72,48 @@
     }
 
     function assetUrls(assets, links) {
-        if (!Array.isArray(links)) return [];
-        return links
-            .map(function (link) {
-                return assetUrl(assets, link);
-            })
-            .filter(Boolean);
+        if (Array.isArray(links)) {
+            return links
+                .map(function (link) {
+                    return assetUrl(assets, link);
+                })
+                .filter(Boolean);
+        }
+        var single = assetUrl(assets, links);
+        return single ? [single] : [];
     }
 
-    function parseBlogPost(entry, assets) {
+    function entryMap(includes) {
+        var map = {};
+        (includes && includes.Entry ? includes.Entry : []).forEach(function (entry) {
+            map[entry.sys.id] = entry;
+        });
+        return map;
+    }
+
+    function richTextToPlainText(node) {
+        if (!node) return '';
+        if (node.nodeType === 'text') return node.value || '';
+        if (!node.content) return '';
+        return node.content.map(richTextToPlainText).join('');
+    }
+
+    function parseLinkedLocatie(entries, link, assets) {
+        if (!link || !link.sys) return null;
+        var entry = entries[link.sys.id];
+        if (!entry) return null;
+        return parseLocatie(entry, assets);
+    }
+
+    function parseBlogPost(entry, assets, entries) {
         var fields = entry.fields || {};
         return {
             id: entry.sys.id,
             titel: fields.titel || '',
             datum: fields.datum || '',
-            tekst: fields.tekst || null,
+            tekst: richTextToPlainText(fields.tekst),
             fotos: assetUrls(assets, fields.fotos),
+            gekoppeldeLocatie: parseLinkedLocatie(entries, fields.gekoppeldeLocatie, assets),
         };
     }
 
@@ -115,10 +141,11 @@
     }
 
     function getBlogPosts() {
-        return fetchEntries('blogPost', { order: '-fields.datum' }).then(function (data) {
+        return fetchEntries('blogPost', { order: 'fields.datum' }).then(function (data) {
             var assets = assetMap(data.includes);
+            var entries = entryMap(data.includes);
             return (data.items || []).map(function (entry) {
-                return parseBlogPost(entry, assets);
+                return parseBlogPost(entry, assets, entries);
             });
         });
     }

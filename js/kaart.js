@@ -84,8 +84,21 @@
         });
     }
 
+    var mapInstance = null;
+    var mapMarkers = {};
+
+    function focusLocatie(locatieId) {
+        var marker = mapMarkers[locatieId];
+        if (!marker || !mapInstance) return;
+
+        mapInstance.setView(marker.getLatLng(), 15);
+        marker.openPopup();
+        openMapModal(locatieId);
+    }
+
     function initMap(locaties) {
         var map = L.map('map').setView([52.52, 13.405], 12);
+        mapInstance = map;
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -110,6 +123,7 @@
                     '">Meer info</button>'
             );
             markers[locatie.id] = marker;
+            mapMarkers[locatie.id] = marker;
             boundsPoints.push([locatie.latitude, locatie.longitude]);
         });
 
@@ -161,6 +175,13 @@
 
         var placeholder = document.getElementById('map-placeholder');
         if (placeholder) placeholder.style.display = 'none';
+
+        var locatieId = new URLSearchParams(window.location.search).get('locatie');
+        if (locatieId) {
+            setTimeout(function () {
+                focusLocatie(locatieId);
+            }, 400);
+        }
     }
 
     function start() {
