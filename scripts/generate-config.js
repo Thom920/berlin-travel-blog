@@ -1,7 +1,3 @@
-/**
- * Leest .env en schrijft js/contentful-config.js voor gebruik in de browser.
- * Run: node scripts/generate-config.js
- */
 'use strict';
 
 var fs = require('fs');

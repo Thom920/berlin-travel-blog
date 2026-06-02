@@ -1,7 +1,3 @@
-/**
- * Contentful Delivery API — vanilla fetch helpers
- * Credentials worden geladen via js/contentful-config.js (gegenereerd uit .env).
- */
 (function () {
     'use strict';
 
