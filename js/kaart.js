@@ -15,8 +15,47 @@
     var DETAIL_BTN_CLASSES =
         'w-full text-left flex items-center gap-2 font-body-md text-body-md text-on-surface hover:text-primary-container transition-colors py-1';
 
+    var MAP_CATEGORIES = [
+        {
+            id: 'cultuur',
+            label: 'Cultuur & Geschiedenis',
+            emoji: '🏛️',
+            cssClass: 'map-category-marker--cultuur',
+        },
+        {
+            id: 'kunst',
+            label: 'Kunst & Creatief',
+            emoji: '🎨',
+            cssClass: 'map-category-marker--kunst',
+        },
+        {
+            id: 'natuur',
+            label: 'Natuur & Dieren',
+            emoji: '🦌',
+            cssClass: 'map-category-marker--natuur',
+        },
+        {
+            id: 'educatie',
+            label: 'Educatie',
+            emoji: '📚',
+            cssClass: 'map-category-marker--educatie',
+        },
+        {
+            id: 'instagram',
+            label: 'Instagram posts',
+            emoji: '📷',
+            isInstagram: true,
+        },
+    ];
+
+    var CATEGORY_BY_LABEL = {};
+    MAP_CATEGORIES.forEach(function (cat) {
+        if (!cat.isInstagram) CATEGORY_BY_LABEL[cat.label.toLowerCase()] = cat;
+    });
+
     var mapInstance = null;
     var mapMarkers = {};
+    var locatieCategoryById = {};
     var instagramLayer = null;
     var instagramMarkers = {};
     var locatieInstagramIndex = {};
@@ -46,20 +85,6 @@
         if (igMarker) igMarker.openPopup();
     }
 
-    function setInstagramAtLocatieVisible(locatieId, visible) {
-        var postIds = locatieInstagramIndex[locatieId];
-        if (!postIds || !instagramLayer) return;
-        postIds.forEach(function (postId) {
-            var igMarker = instagramMarkers[postId];
-            if (!igMarker) return;
-            if (visible) {
-                instagramLayer.addLayer(igMarker);
-            } else {
-                instagramLayer.removeLayer(igMarker);
-            }
-        });
-    }
-
     function escapeHtml(text) {
         var div = document.createElement('div');
         div.textContent = text;
@@ -83,7 +108,20 @@
         return locaties.filter(hasLocatieNaam);
     }
 
+    function resolveLocatieCategory(locatie) {
+        var raw = (locatie.categorie || '').trim().toLowerCase();
+        if (raw && CATEGORY_BY_LABEL[raw]) return CATEGORY_BY_LABEL[raw];
+        return {
+            id: 'overig',
+            label: locatie.categorie || 'Overig',
+            emoji: '📍',
+            cssClass: '',
+        };
+    }
+
     function registerLocatie(locatie) {
+        var category = resolveLocatieCategory(locatie);
+        locatieCategoryById[locatie.id] = category.id;
         mapLocations[locatie.id] = {
             title: locatie.naam,
             description: locatie.beschrijving,
@@ -120,15 +158,49 @@
         return groups;
     }
 
-    function renderSidebar(locaties) {
-        var filtersEl = document.getElementById('map-location-filters');
-        var detailsEl = document.getElementById('map-location-details');
-        var sectionEl = document.getElementById('map-locaties-sidebar');
-        if (!filtersEl || !detailsEl) return;
+    function isCategoryChecked(categoryId) {
+        var cb = document.querySelector('input[data-category="' + categoryId + '"]');
+        return !cb || cb.checked;
+    }
 
-        var sidebarLocaties = getSidebarLocaties(locaties);
+    function renderCategoryFilters() {
+        var filtersEl = document.getElementById('map-category-filters');
+        if (!filtersEl) return;
 
         filtersEl.innerHTML = '';
+
+        MAP_CATEGORIES.forEach(function (category) {
+            var label = document.createElement('label');
+            label.className = LABEL_CLASSES;
+
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = true;
+            checkbox.className = CHECKBOX_CLASSES;
+            checkbox.dataset.category = category.id;
+
+            var emoji = document.createElement('span');
+            emoji.className = 'map-category-filter-emoji';
+            emoji.setAttribute('aria-hidden', 'true');
+            emoji.textContent = category.emoji;
+
+            var name = document.createElement('span');
+            name.className = LABEL_TEXT_CLASSES;
+            name.textContent = category.label;
+
+            label.appendChild(checkbox);
+            label.appendChild(emoji);
+            label.appendChild(name);
+            filtersEl.appendChild(label);
+        });
+    }
+
+    function renderLocationDetails(locaties) {
+        var detailsEl = document.getElementById('map-location-details');
+        var sectionEl = document.getElementById('map-locaties-sidebar');
+        if (!detailsEl) return;
+
+        var sidebarLocaties = getSidebarLocaties(locaties);
         detailsEl.innerHTML = '';
 
         if (!sidebarLocaties.length) {
@@ -139,87 +211,40 @@
         if (sectionEl) sectionEl.classList.remove('hidden');
 
         sidebarLocaties.forEach(function (locatie) {
-            var label = document.createElement('label');
-            label.className = LABEL_CLASSES;
-
-            var checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.checked = true;
-            checkbox.className = CHECKBOX_CLASSES;
-            checkbox.dataset.location = locatie.id;
-
-            var name = document.createElement('span');
-            name.className = LABEL_TEXT_CLASSES;
-            name.textContent = locatie.naam;
-
-            label.appendChild(checkbox);
-            label.appendChild(name);
-            filtersEl.appendChild(label);
-
+            var category = resolveLocatieCategory(locatie);
             var listItem = document.createElement('li');
             var button = document.createElement('button');
             button.type = 'button';
             button.className = DETAIL_BTN_CLASSES;
             button.dataset.location = locatie.id;
             button.innerHTML =
-                '<span class="material-symbols-outlined text-primary-container text-xl">location_on</span> ' +
+                '<span class="map-category-filter-emoji" aria-hidden="true">' +
+                category.emoji +
+                '</span> ' +
                 escapeHtml(locatie.naam);
             listItem.appendChild(button);
             detailsEl.appendChild(listItem);
         });
     }
 
-    function renderInstagramSidebar(posts) {
-        var filtersEl = document.getElementById('map-instagram-filters');
-        var sectionEl = document.getElementById('map-instagram-section');
-        if (!filtersEl || !sectionEl) return;
+    function createCategoryIcon(category) {
+        var html =
+            '<div class="map-category-marker ' +
+            (category.cssClass || '') +
+            '" title="' +
+            escapeHtml(category.label) +
+            '">' +
+            '<span aria-hidden="true">' +
+            category.emoji +
+            '</span>' +
+            '</div>';
 
-        filtersEl.innerHTML = '';
-
-        if (!posts.length) {
-            sectionEl.classList.add('hidden');
-            return;
-        }
-
-        sectionEl.classList.remove('hidden');
-
-        posts.forEach(function (post) {
-            var label = document.createElement('label');
-            label.className = LABEL_CLASSES + ' items-start';
-
-            var checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.checked = true;
-            checkbox.className = CHECKBOX_CLASSES + ' mt-2';
-            checkbox.dataset.instagram = post.id;
-
-            var thumb = document.createElement('img');
-            thumb.src = post.afbeelding;
-            thumb.alt = '';
-            thumb.className = 'map-instagram-sidebar-thumb';
-
-            var textWrap = document.createElement('div');
-            textWrap.className = 'min-w-0 flex-1';
-
-            var caption = document.createElement('span');
-            caption.className =
-                'font-body-sm text-body-sm text-on-surface block line-clamp-2 group-hover:text-primary-container transition-colors';
-            caption.textContent = truncate(post.caption, 60) || 'Instagram post';
-
-            textWrap.appendChild(caption);
-
-            if (hasLocatieNaam(post.gekoppeldeLocatie)) {
-                var locName = document.createElement('span');
-                locName.className =
-                    'font-label-sm text-label-sm text-on-surface-variant block mt-0.5';
-                locName.textContent = post.gekoppeldeLocatie.naam;
-                textWrap.appendChild(locName);
-            }
-
-            label.appendChild(checkbox);
-            label.appendChild(thumb);
-            label.appendChild(textWrap);
-            filtersEl.appendChild(label);
+        return L.divIcon({
+            className: 'map-category-icon-wrap',
+            html: html,
+            iconSize: [36, 36],
+            iconAnchor: [18, 36],
+            popupAnchor: [0, -36],
         });
     }
 
@@ -263,8 +288,48 @@
         });
     }
 
+    function setLocatieMarkersVisible(categoryId, visible) {
+        if (!mapInstance) return;
+        Object.keys(mapMarkers).forEach(function (locId) {
+            if (locatieCategoryById[locId] !== categoryId) return;
+            var marker = mapMarkers[locId];
+            if (!marker) return;
+            if (visible) {
+                marker.addTo(mapInstance);
+            } else {
+                mapInstance.removeLayer(marker);
+            }
+        });
+    }
+
+    function setInstagramLayerVisible(visible) {
+        if (!mapInstance || !instagramLayer) return;
+        if (visible) {
+            mapInstance.addLayer(instagramLayer);
+        } else {
+            mapInstance.removeLayer(instagramLayer);
+        }
+    }
+
+    function bindCategoryFilters() {
+        document.querySelectorAll('input[data-category]').forEach(function (cb) {
+            cb.addEventListener('change', function () {
+                var categoryId = cb.dataset.category;
+                var visible = cb.checked;
+                if (categoryId === 'instagram') {
+                    setInstagramLayerVisible(visible);
+                } else {
+                    setLocatieMarkersVisible(categoryId, visible);
+                }
+            });
+        });
+    }
+
     function addInstagramMarkers(map, posts) {
-        instagramLayer = L.layerGroup().addTo(map);
+        instagramLayer = L.layerGroup();
+        if (isCategoryChecked('instagram')) {
+            instagramLayer.addTo(map);
+        }
         instagramMarkers = {};
 
         var groups = groupInstagramByLocation(posts);
@@ -294,29 +359,6 @@
                 instagramMarkers[post.id] = marker;
             });
         });
-
-        var toggle = document.getElementById('map-instagram-toggle');
-        if (toggle) {
-            toggle.addEventListener('change', function () {
-                if (toggle.checked) {
-                    map.addLayer(instagramLayer);
-                } else {
-                    map.removeLayer(instagramLayer);
-                }
-            });
-        }
-
-        document.querySelectorAll('input[data-instagram]').forEach(function (cb) {
-            cb.addEventListener('change', function () {
-                var marker = instagramMarkers[cb.dataset.instagram];
-                if (!marker || !instagramLayer) return;
-                if (cb.checked) {
-                    instagramLayer.addLayer(marker);
-                } else {
-                    instagramLayer.removeLayer(marker);
-                }
-            });
-        });
     }
 
     function focusLocatie(locatieId) {
@@ -326,7 +368,7 @@
 
         mapInstance.setView([coords.lat, coords.lng], 15);
 
-        if (marker) {
+        if (marker && mapInstance.hasLayer(marker)) {
             marker.openPopup();
         } else {
             openInstagramAtLocatie(locatieId);
@@ -347,7 +389,6 @@
                 '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(map);
 
-        var markers = {};
         var boundsPoints = [];
 
         locaties.forEach(function (locatie) {
@@ -356,7 +397,15 @@
 
             if (hideLocatieMarker[locatie.id]) return;
 
-            var marker = L.marker([locatie.latitude, locatie.longitude]).addTo(map);
+            var category = resolveLocatieCategory(locatie);
+            var marker = L.marker([locatie.latitude, locatie.longitude], {
+                icon: createCategoryIcon(category),
+            });
+
+            if (isCategoryChecked(category.id)) {
+                marker.addTo(map);
+            }
+
             marker.bindPopup(
                 '<b>' +
                     escapeHtml(locatie.naam) +
@@ -366,13 +415,14 @@
                     locatie.id +
                     '">Meer info</button>'
             );
-            markers[locatie.id] = marker;
             mapMarkers[locatie.id] = marker;
         });
 
         if (instagramPosts.length) {
             addInstagramMarkers(map, instagramPosts);
         }
+
+        bindCategoryFilters();
 
         if (boundsPoints.length > 1) {
             map.fitBounds(boundsPoints, { padding: [50, 50] });
@@ -387,35 +437,16 @@
             map.closePopup();
         });
 
-        document.querySelectorAll('input[type="checkbox"][data-location]').forEach(function (cb) {
-            cb.addEventListener('change', function () {
-                var locId = cb.dataset.location;
-                var marker = markers[locId];
-
-                if (marker) {
-                    if (cb.checked) {
-                        marker.addTo(map);
-                    } else {
-                        map.removeLayer(marker);
-                    }
-                }
-
-                if (locatieInstagramIndex[locId]) {
-                    setInstagramAtLocatieVisible(locId, cb.checked);
-                }
-            });
-        });
-
         document.querySelectorAll('[data-location][type="button"]').forEach(function (btn) {
             btn.addEventListener('click', function () {
                 var locId = btn.dataset.location;
-                var marker = markers[locId];
+                var marker = mapMarkers[locId];
                 var coords = cmsLocationCoords[locId];
                 if (!coords) return;
 
                 map.setView([coords.lat, coords.lng], 15);
 
-                if (marker) {
+                if (marker && map.hasLayer(marker)) {
                     marker.openPopup();
                 } else {
                     openInstagramAtLocatie(locId);
@@ -453,17 +484,18 @@
             return;
         }
 
+        renderCategoryFilters();
+
         Promise.all([getLocaties(), getInstagramPosts()])
             .then(function (results) {
                 var locaties = results[0].filter(hasCoordinates);
                 var instagramPosts = getMapReadyInstagramPosts(results[1]);
-                renderSidebar(locaties);
-                renderInstagramSidebar(instagramPosts);
+                renderLocationDetails(locaties);
                 initMap(locaties, instagramPosts);
             })
             .catch(function (err) {
                 console.error('Kaart laden mislukt:', err);
-                var filtersEl = document.getElementById('map-location-filters');
+                var filtersEl = document.getElementById('map-category-filters');
                 if (filtersEl) {
                     filtersEl.innerHTML =
                         '<p class="font-body-md text-body-md text-on-surface-variant">Kaart kon niet geladen worden.</p>';

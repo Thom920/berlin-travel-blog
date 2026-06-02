@@ -217,3 +217,61 @@
     flex-shrink: 0;
     border: 2px solid #e5e8ee;
 }
+
+/* Emojis voor categorieën */
+.map-category-icon-wrap {
+    background: transparent;
+    border: none;
+}
+
+.map-category-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+    line-height: 1;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    background: #fff;
+    border: 2px solid #005f73;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.map-category-marker span {
+    display: block;
+    transform: rotate(45deg);
+}
+
+.map-category-marker:hover {
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.3);
+}
+
+.map-category-marker--cultuur {
+    border-color: #8b4513;
+    background: #fff8f0;
+}
+
+.map-category-marker--kunst {
+    border-color: #9b59b6;
+    background: #faf5ff;
+}
+
+.map-category-marker--natuur {
+    border-color: #2d6a4f;
+    background: #f0faf4;
+}
+
+.map-category-marker--educatie {
+    border-color: #1d4e89;
+    background: #f0f6ff;
+}
+
+.map-category-filter-emoji {
+    font-size: 1.25rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
