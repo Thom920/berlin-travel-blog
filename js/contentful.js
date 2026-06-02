@@ -130,13 +130,14 @@
         };
     }
 
-    function parseInstagramPost(entry, assets) {
+    function parseInstagramPost(entry, assets, entries) {
         var fields = entry.fields || {};
         return {
             id: entry.sys.id,
             caption: fields.caption || '',
             afbeelding: firstAssetUrl(assets, fields.afbeelding),
             permalink: fields.permalink || '',
+            gekoppeldeLocatie: parseLinkedLocatie(entries, fields.gekoppeldeLocatie, assets),
         };
     }
 
@@ -162,8 +163,9 @@
     function getInstagramPosts() {
         return fetchEntries('instagramPost').then(function (data) {
             var assets = assetMap(data.includes);
+            var entries = entryMap(data.includes);
             return (data.items || []).map(function (entry) {
-                return parseInstagramPost(entry, assets);
+                return parseInstagramPost(entry, assets, entries);
             });
         });
     }

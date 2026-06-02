@@ -133,3 +133,87 @@
     z-index: 1;
     pointer-events: none;
 }
+
+/* Instagram-thumbnails op de kaart */
+.map-instagram-icon-wrap {
+    background: transparent;
+    border: none;
+}
+
+.map-instagram-marker {
+    display: block;
+    width: 52px;
+    height: 52px;
+    padding: 3px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.map-instagram-marker:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.map-instagram-marker img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 9px;
+    border: 2px solid #fff;
+}
+
+.map-instagram-popup {
+    min-width: 200px;
+    max-width: 260px;
+}
+
+.map-instagram-popup__img {
+    display: block;
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.map-instagram-popup__caption {
+    font-size: 13px;
+    line-height: 1.45;
+    color: #3d4450;
+    margin: 0 0 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.map-instagram-popup__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #f09433, #dc2743, #bc1888);
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.map-instagram-popup__link:hover {
+    opacity: 0.92;
+    color: #fff;
+}
+
+.map-instagram-sidebar-thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+    border: 2px solid #e5e8ee;
+}
