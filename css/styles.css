@@ -275,3 +275,27 @@
     line-height: 1;
     flex-shrink: 0;
 }
+
+/* Live indicator dot */
+.live-dot {
+    display: inline-block;
+    width: 0.625rem;
+    height: 0.625rem;
+    background-color: #ef4444;
+    border-radius: 50%;
+    animation: liveBlink 1.2s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes liveBlink {
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6);
+    }
+
+    50% {
+        opacity: 0.35;
+        box-shadow: 0 0 0 4px rgba(239, 68, 68, 0);
+    }
+}
